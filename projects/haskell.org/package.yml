@@ -4,15 +4,13 @@ distributable:
   strip-components: 1
 
 versions:
-  - 9.2.4
-  #TODO
-  # github: ghc/ghc/tags
-  # strip:
-  #   - /^ghc-/
-  #   - /-release$/
-  # however ghc breaks every time they release a new version
-  # so you are welcome to embrace trying to build it, we kindly ask they care
-  # more about ensuring their monolithic nonsense has stability in builds
+  github: ghc/ghc/tags
+  strip:
+    - /^ghc-/
+    - /-release$/
+  ignore:
+    # we can only build 9.2x currently lol
+    - /^9.[3456]/
 
 provides:
   - bin/ghc
