@@ -41,6 +41,8 @@ build:
       - -DCURSES_INCLUDE_PATH="{{deps.invisible-island.net/ncurses.prefix}}/include/ncursesw"
 
 test:
+  dependencies:
+    tea.xyz: '*'
   script:
     fish $FIXTURE | grep "variable1variable2variable3variable4variable5variable6variable7variable8variable9variable10go version go"
   fixture: |
