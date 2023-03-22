@@ -3,7 +3,7 @@ distributable:
   strip-components: 1
 
 versions:
-  github: fish-shell/fish-shell/tags
+  github: fish-shell/fish-shell/releases/tags
 
 dependencies:
   gnu.org/gettext: '*'
@@ -44,7 +44,7 @@ test:
   dependencies:
     tea.xyz: '*'
   script:
-    fish $FIXTURE | grep "variable1variable2variable3variable4variable5variable6variable7variable8variable9variable10go version go"
+    fish $FIXTURE | grep "variable1variable2variable3variable4variable5variable6variable7variable8variable9variable10go version go{{version}}"
   fixture: |
     #!/usr/bin/env fish
 
@@ -54,9 +54,20 @@ test:
     end
 
     begin
+      if which go
+        exit 2
+      end
+
       set -lx SHELL fish
       tea --magic | source
       go version
+
+      # verify output from command not found handler can be redirected
+      go version > go.out
+
+      if ! grep go{{version}} go.out
+        exit 3
+      end
     end
 
 provides:
